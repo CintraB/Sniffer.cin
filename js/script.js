@@ -1,8 +1,5 @@
-
-// var para manipular grafico
 const labelIPInX = [];
-const dataIPIny = [];
-
+const dataIPInY = [];
 var timer;
 
 const ctx = document.getElementById('myChart').getContext('2d');
@@ -12,7 +9,7 @@ const myChart = new Chart(ctx, {
         labels: labelIPInX,
         datasets: [{
             label: 'Número de Datagramas IP Recebidos',
-            data: dataIPIny,
+            data: dataIPInY,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
             ],
@@ -27,49 +24,48 @@ const myChart = new Chart(ctx, {
             x: {
                 display: true,
                 title: {
-                    display: true,
-                    text: 'Data/Hora'
+                  display: true,
+                  text: 'Data/Hora'
                 }
             },
             y: {
                 display: true,
                 title: {
                     display: true,
-                    text: 'Quantidade de Datagramas'
-                }
+                    text: 'Qtde de Datagramas'
+                },
+                //beginAtZero: true,
+                // type: 'logarithmic',
+                // min: 100000,
+                // max: 300000,
             }
         }
-    },
+    }
 });
 
-
-//adicionando eventos nos botões
-
-
-document.getElementById("btnIniciar").addEventListener('click', function () {
-    console.log("iniciando monitoramento !!");
-    timer = setInterval(snmpGet,2000);
-    
+//Adicionando eventos nos botões
+document.getElementById("btnIniciar").addEventListener('click',function (){
+    console.log("Iniciando o monitoramento!!");
+    timer = setInterval(snmpGet,5000);
 });
 
-document.getElementById("btnParar").addEventListener('click', function () {
-    console.log("parando monitoramento !!");
+document.getElementById("btnParar").addEventListener('click',function (){
+    console.log("Parando o monitoramento!!");
     clearInterval(timer);
 });
 
-//requisição SNMP
-function snmpGet() {
+//Requisição SNMP
+function snmpGet(){
     $.ajax({
         url: "snmpIP.php",
         method: "POST",
         data: "",
-        success: function (response) {
+        success: function (response){
             console.log(response);
             var dateTime = new Date();
             labelIPInX.push(dateTime.toLocaleTimeString());
-            dataIPIny.push(parseInt(response));
+            dataIPInY.push(parseInt(response));
             myChart.update();
-            //console.log(response);
-        }
+        } 
     })
 }
