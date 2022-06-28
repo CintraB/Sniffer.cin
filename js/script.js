@@ -1,6 +1,7 @@
 const labelIPInX = [];
 const dataIPInY = [];
-var timer;
+var timer, ValorAtual,ValorAnterior,valor;
+var flag = true;
 
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
@@ -24,8 +25,8 @@ const myChart = new Chart(ctx, {
             x: {
                 display: true,
                 title: {
-                  display: true,
-                  text: 'Data/Hora'
+                    display: true,
+                    text: 'Data/Hora'
                 }
             },
             y: {
@@ -44,28 +45,37 @@ const myChart = new Chart(ctx, {
 });
 
 //Adicionando eventos nos botões
-document.getElementById("btnIniciar").addEventListener('click',function (){
+document.getElementById("btnIniciar").addEventListener('click', function () {
     console.log("Iniciando o monitoramento!!");
-    timer = setInterval(snmpGet,5000);
+    timer = setInterval(snmpGet, 8000);
 });
 
-document.getElementById("btnParar").addEventListener('click',function (){
+document.getElementById("btnParar").addEventListener('click', function () {
     console.log("Parando o monitoramento!!");
     clearInterval(timer);
 });
 
 //Requisição SNMP
-function snmpGet(){
+function snmpGet() {
     $.ajax({
         url: "snmpIP.php",
         method: "POST",
         data: "",
-        success: function (response){
-            console.log(response);
-            var dateTime = new Date();
-            labelIPInX.push(dateTime.toLocaleTimeString());
-            dataIPInY.push(parseInt(response));
-            myChart.update();
-        } 
+        success: function (response) {
+            if (flag) {
+                ValorAnterior = response;
+                flag = false;
+            }
+            else {
+                ValorAtual = parseInt(response);
+                valor = ValorAtual - ValorAnterior;
+                ValorAnterior = ValorAtual;
+                console.log(response);
+                var dateTime = new Date();
+                labelIPInX.push(dateTime.toLocaleTimeString());
+                dataIPInY.push(parseInt(valor));
+                myChart.update();
+            }
+        }
     })
 }
