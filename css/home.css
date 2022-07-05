@@ -1,0 +1,10 @@
+@import url('raiz.css');
+
+.escrito {
+  margin: 2rem;
+}
+
+p {
+  font-size: 40px;
+  font-family: "Righteous", cursive;
+}
