@@ -6,10 +6,6 @@
   font-family: "Righteous", cursive;
 }
 
-.menu-sensor:hover {
-    text-decoration: none;
-}
-
 .menu-2{
     color: #7187d8;
     padding: 0.5rem 1rem 0.5rem 1rem;
@@ -20,7 +16,10 @@
     padding: 0.5rem 1rem 0.5rem 1rem;
     border-radius: 20px;
     color: white;
-    text-decoration: none;
+}
+
+.nodec, a:visited {
+    text-decoration: none!important;
 }
 
 h1{
