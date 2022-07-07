@@ -11,24 +11,49 @@
     <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
     <title>Sniffer.cin</title>
     <link rel="icon" href="img/logo-circle.png">
 </head>
 
 <body>
-    <header class="menu d-flex flex-row navbar navbar-expand-lg justify-content-between">
-        <a href="home.html"><img class="col-5" src="/img/logo.png"></a>
-        <div class="d-flex flex-row justify-content-around width-full col-4 ">
-            <a href="home.html" class="text-white">home</a>
-            <a href="sensores.html" class="text-white">sensores</a>
-            <a href="sobre.html" class="text-white">sobre</a>
+    <header class="menu navbar navbar-expand-lg">
+        <div class="container-fluid d-flex justify-content-between">
+            <a class="navbar-brand" href="home.html"><img width="200px" src="/img/logo.png"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado"
+                aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+                <span class="material-icons">
+                    <svg width="30" height="30" viewBox="0 0 80 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0V8H80V0H0ZM0 24V32H80V24H0ZM0 48V56H80V48H0Z" fill="white" />
+                    </svg>
+
+                </span>
+            </button>
+
+            <div class="collapse navbar-collapse width-full justify-content-end" id="conteudoNavbarSuportado">
+                <div class="col-6"></div>
+                <ul class="d-flex navbar-nav mr-auto w-50 justify-content-around col-6">
+                    <li class="nav-item"><a href="index.html" class="nav-link text-white">home</a></li>
+                    <li class="nav-item"><a href="sensores.html" class="nav-link text-white">sensores</a></li>
+                    <li class="nav-item"><a href="sobre.html" class="nav-link text-white">sobre</a></li>
+                </ul>
+            </div>
         </div>
     </header>
+    
     <main>
         <div class="menu-sensor d-flex justify-content-center align-items-center flex-column">
             <h1>Alunos</h1>
             <br>
-            <div class="d-flex flex-row justify-content-around align-items-center" style="min-height: 60vh;">
+            <div class="d-flex flex-row justify-content-around align-items-center " style="min-height: 60vh;">
                 <div class="d-flex flex-column align-items-center">
                     <img class="rounded-circle" src="img/cindy.jpg" width="50%" alt="">
                     <p>Cindel Sousa</p>
