@@ -25,3 +25,13 @@
 h1{
     font-family: "Righteous", cursive;
 }
+
+.btn{
+    padding: 0.5rem 4rem !important;
+    font-size: 25px !important;
+    font-family: "Righteous", cursive !important;
+}
+
+.fs-3{
+    font-size: 20px !important;
+}
