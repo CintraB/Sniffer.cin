@@ -1,7 +1,7 @@
 
 <?php
 	$destIP = "localhost";
-	$community = "public";
+	$community = "gerencia";
 	$oid = ".1.3.6.1.2.1.4.9.0";
 
 	$ipInDelivers = snmp2_get("$destIP","$community","$oid");
