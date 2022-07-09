@@ -1,116 +1,123 @@
-var graphThreelabelX = [];
-var graphThreeDataInY = [];
-var graphThreeDataOutY = [];
-var timer,timer2;
-var dateTime = new Date();
-var rangeIn = 0;
-var rangeOut = 0;
+const labelIPInX = [];
+const dataIPInY = [];
+const dataIPOutY = [];
+var timer,timer2, ValorAtual,ValorAtual2,ValorAnterior,ValorAnterior2,valor,valor2;
+timer=0;
+timer2=0;
+var flag = true;
+var flag2 = true;
 
-  const data = {
-    labels: graphThreelabelX,
-    datasets: [
-      {
-      label: 'Entrada',
-      backgroundColor: 'rgb(255, 99, 132,0.2)',
-      borderColor: 'rgb(255, 99, 132)',
-      data: graphThreeDataInY,
-    },
-    {
-      label: 'Saida',
-      backgroundColor: 'rgb(54, 162, 235,0.2)',
-      borderColor: 'rgb(54, 162, 235)',
-      data: graphThreeDataOutY,
-    }
-    ]
-  };
-
-  const configThree = {
+const ctx = document.getElementById('myChart2').getContext('2d');
+const myChart = new Chart(ctx, {
     type: 'line',
-    data: data,
-    options: {
-      responsive: true,
-      interaction: {
-        mode: 'index',
-        intersect: false
-      },
-      scales: {
-        x: {
-          display: true,
-          title: {
-            display: true,
-            text: 'Data/Hora'
-          }
+    data: {
+        labels: labelIPInX,
+        datasets: [{
+            label: 'Entrada',
+            data: dataIPInY,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+            ],
+            borderWidth: 2
         },
-        y: {
-          display: true,
-          title: {
-            display: true,
-            text: 'Qtde de segmentos TCP'
-          }
+        {
+            label: 'Saida',
+            data: dataIPOutY,
+            backgroundColor: [
+                'rgb(54, 162, 235,0.2)',
+            ],
+            borderColor: [
+                'rgb(54, 162, 235)',
+            ],
+            borderWidth: 2
         }
-      }
+    ]
     },
-  };
+    options: {
+        scales: {
+            x: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Data/Hora'
+                }
+            },
+            y: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Qtde de segmentos TCP'
+                },
+                //beginAtZero: true,
+                // type: 'logarithmic',
+                // min: 100000,
+                // max: 300000,
+            }
+        }
+    }
+});
 
-  var myChart = new Chart(document.getElementById('myChart2'), configThree);
-
-  
 //Adicionando eventos nos botões
-
-  document.getElementById("btnIniciar2").addEventListener('click',function (){
+document.getElementById("btnIniciar2").addEventListener('click', function () {
     console.log("Iniciando o monitoramento!!");
-    graphThreelabelX.length = 0;
-    graphThreeDataInY.length = 0;
-    graphThreeDataOutY.length = 0;
-    timer = setInterval(tcpintGet,5000);
-    timer2 = setInterval(tcpoutGet,5000);
-  });
+    timer = setInterval(tcpGet, 5000);
+    timer2 = setInterval(tcpoutGet, 5000);
+});
 
-  document.getElementById("btnParar2").addEventListener('click',function (){
+document.getElementById("btnParar2").addEventListener('click', function () {
     console.log("Parando o monitoramento!!");
     clearInterval(timer);
     clearInterval(timer2);
-    
-  });
+});
 
-  function tcpintGet(){
-      $.ajax({
-        url:"tcp.php",
-        data: "",
+//Requisição SNMP
+function tcpGet() {
+    $.ajax({
+        url: "tcp.php",
         method: "POST",
-        success: function(response){           
-
-            if(rangeIn === 0) {
-              rangeIn = response;
-            } else {
-              rangeIn = response - rangeIn;
-              graphThreeDataInY.push(rangeIn);
-              myChart.update();
-            }
-            graphThreelabelX.push(dateTime.toLocaleString());
-            rangeIn = response;
-        }
-      })
-  }
-
-  function tcpoutGet(){
-
-      $.ajax({
-        url:"tcpout.php",
         data: "",
-        method: "POST",
-        success: function(response){
-
-            if(rangeOut === 0){
-              rangeOut = response
-            }else{
-              rangeOut = response - rangeOut;
-              graphThreeDataOutY.push(rangeOut);
-              myChart.update();
+        success: function (response) {
+            if (flag) {
+                ValorAnterior = response;
+                flag = false;
             }
-            graphThreelabelX.push(dateTime.toLocaleString());
-            rangeOut = response;
-            
+            else {
+                ValorAtual = parseInt(response);
+                valor = ValorAtual - ValorAnterior;
+                ValorAnterior = ValorAtual;
+                console.log(response);
+                var dateTime = new Date();
+                labelIPInX.push(dateTime.toLocaleTimeString());
+                dataIPInY.push(parseInt(valor));
+                myChart.update();
+            }
         }
-      })
-  }
+    })
+}
+
+function tcpoutGet() {
+    $.ajax({
+        url: "tcpout.php",
+        method: "POST",
+        data: "",
+        success: function (response2) {
+            if (flag2) {
+                ValorAnterior2 = response2;
+                flag2 = false;
+            }
+            else {
+                ValorAtual2 = parseInt(response2);
+                valor2 = ValorAtual2 - ValorAnterior2;
+                ValorAnterior2 = ValorAtual2;
+                console.log(response2);
+                var dateTime = new Date();
+                labelIPInX.push(dateTime.toLocaleTimeString());
+                dataIPOutY.push(parseInt(valor2));
+                myChart.update();
+            }
+        }
+    })
+}
