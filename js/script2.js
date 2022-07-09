@@ -76,7 +76,7 @@ document.getElementById("btnParar2").addEventListener('click', function () {
 //Requisição SNMP
 function tcpGet() {
     $.ajax({
-        url: "tcp.php",
+        url: "php/tcp.php",
         method: "POST",
         data: "",
         success: function (response) {
@@ -100,7 +100,7 @@ function tcpGet() {
 
 function tcpoutGet() {
     $.ajax({
-        url: "tcpout.php",
+        url: "php/tcpout.php",
         method: "POST",
         data: "",
         success: function (response2) {

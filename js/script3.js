@@ -76,7 +76,7 @@ document.getElementById("btnParar3").addEventListener('click', function () {
 //Requisição SNMP
 function udpGet() {
     $.ajax({
-        url: "udp.php",
+        url: "php/udp.php",
         method: "POST",
         data: "",
         success: function (response) {
@@ -100,7 +100,7 @@ function udpGet() {
 
 function udpoutGet() {
     $.ajax({
-        url: "udpout.php",
+        url: "php/udpout.php",
         method: "POST",
         data: "",
         success: function (response2) {

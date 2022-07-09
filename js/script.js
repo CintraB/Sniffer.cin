@@ -76,7 +76,7 @@ document.getElementById("btnParar").addEventListener('click', function () {
 //Requisição SNMP
 function snmpGet() {
     $.ajax({
-        url: "snmpIP.php",
+        url: "php/snmpIP.php",
         method: "POST",
         data: "",
         success: function (response) {
@@ -100,7 +100,7 @@ function snmpGet() {
 
 function snmpoutGet() {
     $.ajax({
-        url: "snmpout.php",
+        url: "php/snmpout.php",
         method: "POST",
         data: "",
         success: function (response2) {
