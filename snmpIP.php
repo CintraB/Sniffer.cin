@@ -7,6 +7,5 @@
 	$ipInDelivers = snmp2_get("$destIP","$community","$oid");
 	
 	$ipIn = explode(" ",$ipInDelivers);
-	//var_dump($ipIn);
 	echo $ipIn[1];
 ?>
