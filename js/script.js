@@ -63,8 +63,9 @@ const myChart = new Chart(ctx, {
 //Adicionando eventos nos botões
 document.getElementById("btnIniciar").addEventListener('click', function () {
     console.log("Iniciando o monitoramento!!");
-    timer = setInterval(snmpGet, 5000);
-    timer2 = setInterval(snmpoutGet, 5000);
+    timer = setInterval(() =>snmpGet(document.getElementById("campoIP").value), 5000);
+    timer2 = setInterval(() =>snmpoutGet(document.getElementById("campoIP").value), 5000);
+    //timer2 = setInterval(snmpoutGet, 5000);
 });
 
 document.getElementById("btnParar").addEventListener('click', function () {
@@ -74,11 +75,11 @@ document.getElementById("btnParar").addEventListener('click', function () {
 });
 
 //Requisição SNMP
-function snmpGet() {
+function snmpGet(campoIP) {
     $.ajax({
-        url: "snmpIP.php",
+        url: "php/snmpIP.php",
         method: "POST",
-        data: "",
+        data: `campoIP=${campoIP}`,
         success: function (response) {
             if (flag) {
                 ValorAnterior = response;
@@ -98,11 +99,11 @@ function snmpGet() {
     })
 }
 
-function snmpoutGet() {
+function snmpoutGet(campoIP) {
     $.ajax({
-        url: "snmpout.php",
+        url: "php/snmpout.php",
         method: "POST",
-        data: "",
+        data: `campoIP=${campoIP}`,
         success: function (response2) {
             if (flag2) {
                 ValorAnterior2 = response2;

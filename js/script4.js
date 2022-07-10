@@ -63,8 +63,10 @@ const myChart = new Chart(ctx, {
 //Adicionando eventos nos botões
 document.getElementById("btnIniciar4").addEventListener('click', function () {
     console.log("Iniciando o monitoramento!!");
-    timer = setInterval(snmpGet, 5000);
-    timer2 = setInterval(snmpoutGet, 5000);
+    timer = setInterval(() =>snmpGet(document.getElementById("campoIPsnmp").value), 5000);
+    //timer = setInterval(snmpGet, 5000);
+    timer2 = setInterval(() =>snmpoutGet(document.getElementById("campoIPsnmp").value), 5000);
+    //timer2 = setInterval(snmpoutGet, 5000);
 });
 
 document.getElementById("btnParar4").addEventListener('click', function () {
@@ -74,11 +76,11 @@ document.getElementById("btnParar4").addEventListener('click', function () {
 });
 
 //Requisição SNMP
-function snmpGet() {
+function snmpGet(campoIPsnmp) {
     $.ajax({
-        url: "snmpInpkts.php",
+        url: "php/snmpInpkts.php",
         method: "POST",
-        data: "",
+        data: `campoIPsnmp=${campoIPsnmp}`,
         success: function (response) {
             if (flag) {
                 ValorAnterior = response;
@@ -98,11 +100,11 @@ function snmpGet() {
     })
 }
 
-function snmpoutGet() {
+function snmpoutGet(campoIPsnmp) {
     $.ajax({
-        url: "snmpOutpkts.php",
+        url: "php/snmpOutpkts.php",
         method: "POST",
-        data: "",
+        data: `campoIPsnmp=${campoIPsnmp}`,
         success: function (response2) {
             if (flag2) {
                 ValorAnterior2 = response2;
