@@ -63,8 +63,10 @@ const myChart = new Chart(ctx, {
 //Adicionando eventos nos botões
 document.getElementById("btnIniciar3").addEventListener('click', function () {
     console.log("Iniciando o monitoramento!!");
-    timer = setInterval(udpGet, 5000);
-    timer2 = setInterval(udpoutGet, 5000);
+    timer = setInterval(() =>udpGet(document.getElementById("campoIPudp").value), 5000);
+    //timer = setInterval(udpGet, 5000);
+    timer2 = setInterval(() =>udpoutGet(document.getElementById("campoIPudp").value), 5000);
+    //timer2 = setInterval(udpoutGet, 5000);
 });
 
 document.getElementById("btnParar3").addEventListener('click', function () {
@@ -74,11 +76,11 @@ document.getElementById("btnParar3").addEventListener('click', function () {
 });
 
 //Requisição SNMP
-function udpGet() {
+function udpGet(campoIPudp) {
     $.ajax({
         url: "php/udp.php",
         method: "POST",
-        data: "",
+        data: `campoIPudp=${campoIPudp}`,
         success: function (response) {
             if (flag) {
                 ValorAnterior = response;
@@ -98,11 +100,11 @@ function udpGet() {
     })
 }
 
-function udpoutGet() {
+function udpoutGet(campoIPudp) {
     $.ajax({
         url: "php/udpout.php",
         method: "POST",
-        data: "",
+        data: `campoIPudp=${campoIPudp}`,
         success: function (response2) {
             if (flag2) {
                 ValorAnterior2 = response2;
