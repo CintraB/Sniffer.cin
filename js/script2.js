@@ -63,8 +63,10 @@ const myChart = new Chart(ctx, {
 //Adicionando eventos nos botões
 document.getElementById("btnIniciar2").addEventListener('click', function () {
     console.log("Iniciando o monitoramento!!");
-    timer = setInterval(tcpGet, 5000);
-    timer2 = setInterval(tcpoutGet, 5000);
+    timer = setInterval(() =>tcpGet(document.getElementById("campoIPtcp").value), 5000);
+    //timer = setInterval(tcpGet, 5000);
+    timer2 = setInterval(() =>tcpoutGet(document.getElementById("campoIPtcp").value), 5000);
+    //timer2 = setInterval(tcpoutGet, 5000);
 });
 
 document.getElementById("btnParar2").addEventListener('click', function () {
@@ -74,11 +76,11 @@ document.getElementById("btnParar2").addEventListener('click', function () {
 });
 
 //Requisição SNMP
-function tcpGet() {
+function tcpGet(campoIPtcp) {
     $.ajax({
         url: "php/tcp.php",
         method: "POST",
-        data: "",
+        data: `campoIPtcp=${campoIPtcp}`,
         success: function (response) {
             if (flag) {
                 ValorAnterior = response;
@@ -98,11 +100,11 @@ function tcpGet() {
     })
 }
 
-function tcpoutGet() {
+function tcpoutGet(campoIPtcp) {
     $.ajax({
         url: "php/tcpout.php",
         method: "POST",
-        data: "",
+        data: `campoIPtcp=${campoIPtcp}`,
         success: function (response2) {
             if (flag2) {
                 ValorAnterior2 = response2;

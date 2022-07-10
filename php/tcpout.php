@@ -1,6 +1,7 @@
 <?php
 
-$destIP = "localhost";
+#$destIP = "localhost";
+$destIP = $_POST['campoIPtcp'];
 $community = "gerencia";
 $oid = ".1.3.6.1.2.1.6.11.0";
 
